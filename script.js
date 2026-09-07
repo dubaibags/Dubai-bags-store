@@ -8,3 +8,12 @@ document.getElementById("checkout").addEventListener("click", function () {
         "_blank"
     );
 });
+
+const sheetURL =
+"https://docs.google.com/spreadsheets/d/101ylvyeNgylkRFMf4TnnNncKqwjwpJ6bq9hIMbsDO6g/export?format=csv";
+
+fetch(sheetURL)
+.then(res => res.text())
+.then(data => {
+    console.log(data);
+});
