@@ -19,7 +19,7 @@ Papa.parse(sheetURL, {
             list.innerHTML += `
             <div class="card">
 
-            <img src="${item.Image}" style="width:100%;border-radius:10px;">
+            <img src="${item.Image.trim()}" style="width:100%;height:250px;object-fit:cover;border-radius:10px;" onerror="this.style.border='3px solid red';console.log(this.src)">
 
             <h3>${item.Product}</h3>
 
