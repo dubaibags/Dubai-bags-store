@@ -1,38 +1,55 @@
-
 const phone = "971542461192";
 
-document.getElementById("checkout").addEventListener("click", function () {
-    const message = "Hello, I want to order from Dubai Bags.";
-    window.open(
-        `https://wa.me/${phone}?text=${encodeURIComponent(message)}`,
-        "_blank"
-    );
-});
 const sheetURL =
 "https://docs.google.com/spreadsheets/d/101ylvyeNgylkRFMf4TnnNncKqwjwpJ6bq9hIMbsDO6g/export?format=csv";
 
 Papa.parse(sheetURL, {
     download: true,
     header: true,
-    complete: function(results) {
+    complete: function(results){
 
-     
-        const container = document.getElementById("product-list");
-        container.innerHTML = "";
+        const list = document.getElementById("product-list");
 
-        results.data.forEach(product => {
+        list.innerHTML = "";
 
-            if (product.Available !== "Yes") return;
+        results.data.forEach(item=>{
 
-            container.innerHTML += `
-                <div class="card">
-                    <img src="${product.Image}" alt="${product.Product}" width="180">
-                    <h3>${product.Product}</h3>
-                    <p>AED ${product.Price}</p>
-                    <button>Add to Cart</button>
-                </div>
+            if(item.Available !== "Yes") return;
+
+            list.innerHTML += `
+            <div class="card">
+
+            <img src="${item.Image}" style="width:100%;border-radius:10px;">
+
+            <h3>${item.Product}</h3>
+
+            <p><b>AED ${item.Price}</b></p>
+
+            <button onclick="order('${item.Product}',${item.Price})">
+            Add To Cart
+            </button>
+
+            </div>
             `;
         });
 
     }
 });
+
+function order(product,price){
+
+let text=`Hello Dubai Bags
+
+I want to order:
+
+${product}
+
+Price: AED ${price}`;
+
+window.open(
+
+`https://wa.me/${phone}?text=${encodeURIComponent(text)}`,
+
+"_blank");
+
+}
