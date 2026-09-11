@@ -19,51 +19,61 @@ Price: AED ${price}`;
 const sheetURL =
 "https://docs.google.com/spreadsheets/d/101ylvyeNgylkRFMf4TnnNncKqwjwpJ6bq9hIMbsDO6g/export?format=csv";
 
+const urlParams = new URLSearchParams(window.location.search);
+const selectedCategory = urlParams.get("category");
+
 Papa.parse(sheetURL, {
     download: true,
     header: true,
     skipEmptyLines: true,
 
-    complete: function(results){
+    complete: function(results) {
 
         const list = document.getElementById("product-list");
 
+        if (!list) return;
+
         list.innerHTML = "";
 
-        results.data.forEach(item=>{
+        if (selectedCategory) {
+            const title = document.getElementById("category-title");
 
-            if(!item.Product) return;
+            if (title) {
+                title.textContent = selectedCategory;
+            }
+        }
 
-            if(String(item.Available).trim().toLowerCase()!="yes") return;
+        results.data.forEach(item => {
+
+            if (!item.Product) return;
+
+            if (
+                String(item.Available || "")
+                    .trim()
+                    .toLowerCase() !== "yes"
+            ) return;
+
+            if (
+                selectedCategory &&
+                String(item.Category || "")
+                    .trim()
+                    .toLowerCase() !== selectedCategory
+                    .trim()
+                    .toLowerCase()
+            ) return;
 
             list.innerHTML += `
-            <div class="card" data-category="${item.Category}">
-                <img src="${String(item.Image).trim()}" alt="${item.Product}">
+            <div class="card">
+                <img src="${String(item.Image || "").trim()}" alt="${item.Product}">
                 <h3>${item.Product}</h3>
                 <p><b>AED ${item.Price}</b></p>
-                <button onclick="order('${item.Product}','${item.Price}')">
+
+                <button onclick="order('${String(item.Product).replace(/'/g, "\\'")}','${item.Price}')">
                     Order on WhatsApp
                 </button>
             </div>
             `;
-
         });
 
     }
-
 });
-function showCategory(category) {
-
-    const products = document.querySelectorAll("#product-list .card");
-
-    products.forEach(product => {
-
-        if ((product.dataset.category || "").trim().toLowerCase() === category.toLowerCase()) {
-            product.style.display = "block";
-        } else {
-            product.style.display = "none";
-        }
-
-    });
-
-}
