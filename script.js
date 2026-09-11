@@ -58,7 +58,7 @@ function showCategory(category) {
 
     products.forEach(product => {
 
-        if (product.dataset.category === category) {
+        if ((product.dataset.category || "").trim().toLowerCase() === category.toLowerCase()) {
             product.style.display = "block";
         } else {
             product.style.display = "none";
