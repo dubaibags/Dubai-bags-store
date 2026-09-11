@@ -52,3 +52,18 @@ Papa.parse(sheetURL, {
     }
 
 });
+function showCategory(category) {
+
+    const products = document.querySelectorAll("#product-list .card");
+
+    products.forEach(product => {
+
+        if (product.dataset.category === category) {
+            product.style.display = "block";
+        } else {
+            product.style.display = "none";
+        }
+
+    });
+
+}
