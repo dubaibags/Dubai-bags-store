@@ -37,7 +37,7 @@ Papa.parse(sheetURL, {
             if(String(item.Available).trim().toLowerCase()!="yes") return;
 
             list.innerHTML += `
-            <div class="card">
+            <div class="card" data-category="${item.Category}">
                 <img src="${String(item.Image).trim()}" alt="${item.Product}">
                 <h3>${item.Product}</h3>
                 <p><b>AED ${item.Price}</b></p>
