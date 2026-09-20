@@ -90,7 +90,43 @@ margin:20px;
 border-radius:15px;
 box-shadow:0 2px 8px rgba(0,0,0,.08);
 }
+@media (max-width:600px){
 
+.card{
+    padding:8px;
+    font-size:16px;
+}
+
+.card img{
+    width:100%;
+    max-height:180px;
+    object-fit:contain;
+}
+
+.card h3{
+    font-size:18px;
+    margin:8px 0;
+}
+
+.card p{
+    font-size:16px;
+    margin:6px 0;
+}
+
+.card button{
+    font-size:13px;
+    padding:10px 5px;
+}
+
+.products{
+    padding:15px;
+}
+
+#product-list{
+    gap:10px;
+}
+
+}
 #checkout{
 width:100%;
 background:#25D366;
