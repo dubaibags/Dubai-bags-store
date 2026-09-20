@@ -166,3 +166,13 @@ border:none;
 border-radius:8px;
 cursor:pointer;
 }
+.card{
+    min-width:0;
+}
+
+.card img{
+    width:100%;
+    max-width:100%;
+    height:180px;
+    object-fit:contain;
+}
